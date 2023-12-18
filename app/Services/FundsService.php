@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Fund;
+use Illuminate\Support\Collection;
 
 class FundsService {
-    public function list($filters)
+    public function list($filters): Collection
     {
         $query = Fund::query();
 
@@ -24,5 +25,12 @@ class FundsService {
         }
 
         return $query->get();
+    }
+
+    public function update(Fund $fund, array $payload): Fund
+    {
+        $fund->fill($payload)->update();
+
+        return $fund;
     }
 }

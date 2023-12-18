@@ -11,6 +11,8 @@ class Fund extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'manager_id', 'started_at'];
+
     public function manager(): BelongsTo
     {
         return $this->belongsTo(Manager::class);
