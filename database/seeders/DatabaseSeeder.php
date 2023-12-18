@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Manager;
+use App\Models\Fund;
+use App\Models\Alias;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $managers = Manager::factory(30)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        for ($i = 0; $i < 100; $i++) {
+            $fund = Fund::factory()->create(['manager_id' => $managers->random()]);
+
+            $aliasCant = fake()->numberBetween(0, 10);
+            Alias::factory($aliasCant)->create(['fund_id' => $fund]);
+        }
     }
 }
