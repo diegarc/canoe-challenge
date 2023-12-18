@@ -17,4 +17,9 @@ class FundController extends Controller
     {
         return $fundsService->update($fund, $request->all());
     }
+
+    public function store(Request $request, FundsService $fundsService)
+    {
+        return $fundsService->create($request->all());
+    }
 }

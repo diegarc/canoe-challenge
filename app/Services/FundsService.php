@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Fund;
 use Illuminate\Support\Collection;
+use App\Events\DuplicatedFund;
 
 class FundsService {
     public function list($filters): Collection
@@ -32,5 +33,14 @@ class FundsService {
         $fund->fill($payload)->update();
 
         return $fund;
+    }
+
+    public function create(array $payload): Fund
+    {
+        if (Fund::duplicated($payload)->exists()) {
+            DuplicatedFund::dispatch();
+        }
+
+        return Fund::create($payload);
     }
 }

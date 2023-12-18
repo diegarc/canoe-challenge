@@ -17,3 +17,4 @@ use App\Http\Controllers\FundController;
 
 Route::get('funds', [FundController::class, 'index']);
 Route::put('funds/{fund}', [FundController::class, 'update']);
+Route::post('funds', [FundController::class, 'store']);
